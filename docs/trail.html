@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+  
+    
+@media only screen and (max-width:800px) {
+  /* For tablets: */
+  
+  div {
+    width: 80%;
+    height: auto;
+  }
+}
+@media only screen and (max-width:500px) {
+  /* For mobile phones: */
+ div {
+    width: 100%;
+    height : auto;
+  }
+}
+</style>
+</head>
+<body>
+    <!--<img src="office-floor-plan.png" usemap="#office-floor-plan.png">
+    <map name="office-floor-plan.png" id="office-floor-plan.png">
+        <area shape="circle" coords="321,70,28" title="divya" nohref alt=""  />
+        <area shape="circle" coords="453,191,36" title="divya" nohref alt=""  />
+        <area shape="circle" coords="282,235,19" title="divya" nohref alt=""  />
+        <area shape="circle" coords="101,161,29" nohref alt="" title="divya" />
+        <area shape="circle" coords="58,103,21" nohref alt=""  title="divya"/>
+        <area shape="circle" coords="288,177,17" nohref alt="" title="divya" />
+        <area shape="circle" coords="51,336,22" nohref alt=""  title="divya" />
+        <a xlink:href=""><circle   cx="321" cy="70" r="28" /></a>
+    </map>-->
+   
+        <div id= "floorMap" style= "background: url('myOffice.png'); background-size: cover; width:983px; height:632px;" >
+        
+        </div>
+
+  
+    
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    function mouseOverHandler(evt) {};
+    function clickHandler(evt) {};
+
+    var scale = 1;
+
+$(document).ready(function(){
+    $("div").on("mousewheel DOMMouseScroll", function (e) {
+    e.preventDefault();
+    var delta = e.delta || e.originalEvent.wheelDelta;
+    var zoomOut;
+    if (delta === undefined) {
+      //we are on firefox
+      delta = e.originalEvent.detail;
+      zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+      zoomOut = !zoomOut;
+    } else {
+      zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+    }
+    var touchX = e.type === 'touchend' ? e.changedTouches[0].pageX : e.pageX;
+    var touchY = e.type === 'touchend' ? e.changedTouches[0].pageY : e.pageY;
+    var translateX, translateY;
+    if(zoomOut){
+      // we are zooming out
+      scale = scale - 0.01;
+      
+      var offsetWidth = $("div")[0].offsetWidth;
+      var offsetHeight = $("div")[0].offsetHeight;
+
+      $("div")
+        .css("transform-origin", touchX + 'px ' + touchY + 'px')
+        .css("transform", 'scale(' + scale + ')');
+      
+    }else{
+      // we are zooming in
+      scale = scale + 0.01;
+      
+      var offsetWidth = $("div")[0].offsetWidth;
+      var offsetHeight = $("div")[0].offsetHeight;
+
+      $("div")
+        .css("transform-origin", touchX + 'px ' + touchY + 'px')
+        .css("transform", 'scale(' + scale + ')');
+    }
+    
+  });
+
+
+});
+var str = localStorage.getItem("floorSvg");
+document.getElementById("floorMap").innerHTML=str;
+</script>
+
+</body>
+</html>
